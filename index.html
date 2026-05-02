@@ -116,26 +116,281 @@
 <!-- ═══════════════ MENU ═══════════════ -->
 <section id="menu">
   <div class="container">
+    <div class="text-center mb-5 reveal">
+      <div class="section-tag">What We Bake</div>
+      <h2 class="section-title">Our Signature Menu</h2>
+      <div class="section-divider center"></div>
+      <p class="text-muted" style="max-width:480px;margin:0 auto;font-size:0.95rem;">Every item is made to order. Browse our collection and find your next favorite treat.</p>
+    </div>
+    <div class="menu-filter justify-content-center reveal">
+      <button class="filter-btn active" onclick="filterMenu('all', this)">All Items</button>
+      <button class="filter-btn" onclick="filterMenu('cake', this)">Cakes</button>
+      <button class="filter-btn" onclick="filterMenu('bread', this)">Breads</button>
+      <button class="filter-btn" onclick="filterMenu('pastry', this)">Pastries</button>
+      <button class="filter-btn" onclick="filterMenu('cookie', this)">Cookies</button>
+    </div>
+    <div class="row g-4" id="menuGrid">
+ 
+      <div class="col-md-6 col-lg-4 menu-col reveal" data-cat="cake">
+        <div class="menu-card">
+          <div class="menu-img">🎂<div class="menu-badge">Best Seller</div></div>
+          <div class="menu-body">
+            <h5>Signature Layer Cake</h5>
+            <p>Moist vanilla sponge with silky buttercream, fresh berries and a touch of nostalgia.</p>
+            <div class="menu-footer">
+              <div class="menu-price">Rp 185K</div>
+              <button class="btn-cart" onclick="addToOrder('Signature Layer Cake')">+ Add</button>
+            </div>
+          </div>
+        </div>
+      </div>
+ 
+      <div class="col-md-6 col-lg-4 menu-col reveal" data-cat="pastry">
+        <div class="menu-card">
+          <div class="menu-img">🥐<div class="menu-badge">Fan Fave</div></div>
+          <div class="menu-body">
+            <h5>Butter Croissant</h5>
+            <p>Laminated with real French butter, golden and flaky outside, airy pillowy inside.</p>
+            <div class="menu-footer">
+              <div class="menu-price">Rp 28K</div>
+              <button class="btn-cart" onclick="addToOrder('Butter Croissant')">+ Add</button>
+            </div>
+          </div>
+        </div>
+      </div>
+ 
+      <div class="col-md-6 col-lg-4 menu-col reveal" data-cat="cookie">
+        <div class="menu-card">
+          <div class="menu-img">🍪</div>
+          <div class="menu-body">
+            <h5>Choco Chunk Cookies</h5>
+            <p>Brown butter dough packed with generous dark chocolate chunks. Crispy edges, chewy centers.</p>
+            <div class="menu-footer">
+              <div class="menu-price">Rp 45K / 6pcs</div>
+              <button class="btn-cart" onclick="addToOrder('Choco Chunk Cookies')">+ Add</button>
+            </div>
+          </div>
+        </div>
+      </div>
+ 
+      <div class="col-md-6 col-lg-4 menu-col reveal" data-cat="bread">
+        <div class="menu-card">
+          <div class="menu-img">🍞<div class="menu-badge">New</div></div>
+          <div class="menu-body">
+            <h5>Milk Soft Rolls</h5>
+            <p>Japanese-style fluffy milk bread rolls, perfect as is or filled with your favorite spread.</p>
+            <div class="menu-footer">
+              <div class="menu-price">Rp 55K / 6pcs</div>
+              <button class="btn-cart" onclick="addToOrder('Milk Soft Rolls')">+ Add</button>
+            </div>
+          </div>
+        </div>
+      </div>
+ 
+      <div class="col-md-6 col-lg-4 menu-col reveal" data-cat="cake">
+        <div class="menu-card">
+          <div class="menu-img">🧁</div>
+          <div class="menu-body">
+            <h5>Classic Cupcakes</h5>
+            <p>Delicate vanilla or chocolate base, swirled with our house frosting. Available in 6 or 12.</p>
+            <div class="menu-footer">
+              <div class="menu-price">Rp 95K / 6pcs</div>
+              <button class="btn-cart" onclick="addToOrder('Classic Cupcakes')">+ Add</button>
+            </div>
+          </div>
+        </div>
+      </div>
+ 
+      <div class="col-md-6 col-lg-4 menu-col reveal" data-cat="pastry">
+        <div class="menu-card">
+          <div class="menu-img">🥧<div class="menu-badge">Seasonal</div></div>
+          <div class="menu-body">
+            <h5>Brown Sugar Tart</h5>
+            <p>Crisp shortcrust shell filled with caramel custard and a dusting of flaky sea salt.</p>
+            <div class="menu-footer">
+              <div class="menu-price">Rp 65K</div>
+              <button class="btn-cart" onclick="addToOrder('Brown Sugar Tart')">+ Add</button>
+            </div>
+          </div>
+        </div>
+      </div>
+ 
+    </div>
+    <div class="text-center mt-5 reveal">
+      <p style="color:var(--muted);font-size:0.9rem;margin-bottom:1rem;">Want something custom? We love special orders!</p>
+      <a href="#order" class="btn-outline-brand">Request Custom Order</a>
+    </div>
   </div>
 </section>
-
+ 
 <!-- ═══════════════ TESTIMONIALS ═══════════════ -->
 <section id="testimonials">
   <div class="container">
-    
+    <div class="text-center mb-5 reveal">
+      <div class="section-tag">Happy Customers</div>
+      <h2 class="section-title" style="color:var(--white);">What People Are Saying</h2>
+      <div class="section-divider center" style="background:var(--light);"></div>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-4 reveal">
+        <div class="testi-card">
+          <div class="stars">★★★★★</div>
+          <p class="testi-text">"The layer cake for my daughter's birthday was absolutely stunning — and even better tasting. Every guest asked where it was from!"</p>
+          <div class="testi-author">
+            <div class="testi-avatar">👩</div>
+            <div><div class="testi-name">Sari Kusuma</div><div class="testi-loc">Jakarta Selatan</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 reveal">
+        <div class="testi-card">
+          <div class="stars">★★★★★</div>
+          <p class="testi-text">"Ordered the croissants for a Sunday brunch and they were gone within minutes. Perfectly laminated — I've never had better outside a patisserie."</p>
+          <div class="testi-author">
+            <div class="testi-avatar">👨</div>
+            <div><div class="testi-name">Rafi Andrianto</div><div class="testi-loc">Tangerang</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 reveal">
+        <div class="testi-card">
+          <div class="stars">★★★★★</div>
+          <p class="testi-text">"I've been a monthly subscriber for their soft rolls since they launched. The quality is consistently amazing — it genuinely tastes like love in every bite."</p>
+          <div class="testi-author">
+            <div class="testi-avatar">👩</div>
+            <div><div class="testi-name">Dina Pratiwi</div><div class="testi-loc">Bekasi</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
-
+ 
 <!-- ═══════════════ GALLERY ═══════════════ -->
 <section id="gallery">
   <div class="container">
-
+    <div class="text-center mb-5 reveal">
+      <div class="section-tag">Our Creations</div>
+      <h2 class="section-title">Fresh From the Oven</h2>
+      <div class="section-divider center"></div>
+    </div>
+    <div class="gallery-grid reveal">
+      <div class="gallery-item span2" style="background:#EDE0C8;">
+        🎂
+        <div class="gallery-overlay"><span>Celebration Cakes</span></div>
+      </div>
+      <div class="gallery-item tall" style="background:#E8D5B7;">
+        🥐
+        <div class="gallery-overlay"><span>Pastries</span></div>
+      </div>
+      <div class="gallery-item" style="background:#F2E4CC;">
+        🍪
+        <div class="gallery-overlay"><span>Cookies</span></div>
+      </div>
+      <div class="gallery-item" style="background:#EAD8C0;">
+        🧁
+        <div class="gallery-overlay"><span>Cupcakes</span></div>
+      </div>
+      <div class="gallery-item" style="background:#E5D3B3;">
+        🍞
+        <div class="gallery-overlay"><span>Artisan Breads</span></div>
+      </div>
+      <div class="gallery-item" style="background:#ECD9C3;">
+        🥧
+        <div class="gallery-overlay"><span>Tarts & Pies</span></div>
+      </div>
+    </div>
+    <p class="text-center mt-4 reveal" style="font-size:0.85rem;color:var(--muted);">Follow us on Instagram <strong style="color:var(--primary);">@dbitesofbliss</strong> for daily fresh drops</p>
   </div>
 </section>
-
+ 
 <!-- ═══════════════ ORDER FORM ═══════════════ -->
 <section id="order">
   <div class="container">
+    <div class="text-center mb-5 reveal">
+      <div class="section-tag">Place Your Order</div>
+      <h2 class="section-title">Let's Bake Something<br>Just For You</h2>
+      <div class="section-divider center"></div>
+    </div>
+    <div class="order-wrapper reveal">
+      <div class="row g-0">
+        <div class="col-lg-4">
+          <div class="order-sidebar">
+            <h3>Order Info</h3>
+            <p>We accept pre-orders at least 2 days in advance. For custom cakes, please order 5 days before your event.</p>
+            <ul class="order-info-list">
+              <li>
+                <div class="info-icon">🕐</div>
+                <div><strong style="color:#fff;">Processing Time</strong><br>2–5 business days</div>
+              </li>
+              <li>
+                <div class="info-icon">🚚</div>
+                <div><strong style="color:#fff;">Delivery</strong><br>Jabodetabek area covered</div>
+              </li>
+              <li>
+                <div class="info-icon">💬</div>
+                <div><strong style="color:#fff;">Confirmation</strong><br>Via WhatsApp within 24 hrs</div>
+              </li>
+              <li>
+                <div class="info-icon">💳</div>
+                <div><strong style="color:#fff;">Payment</strong><br>Transfer / GoPay / OVO</div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-lg-8">
+          <div class="order-form-section">
+            <form id="orderForm" novalidate>
+              <div class="row g-3">
+                <div class="col-sm-6">
+                  <label class="form-label">Full Name *</label>
+                  <input type="text" class="form-control" id="fname" placeholder="Your name" required/>
+                </div>
+                <div class="col-sm-6">
+                  <label class="form-label">WhatsApp Number *</label>
+                  <input type="tel" class="form-control" id="phone" placeholder="08xx-xxxx-xxxx" required/>
+                </div>
+                <div class="col-sm-6">
+                  <label class="form-label">Product *</label>
+                  <select class="form-select" id="product" required>
+                    <option value="" disabled selected>Select item</option>
+                    <option>Signature Layer Cake</option>
+                    <option>Butter Croissant</option>
+                    <option>Choco Chunk Cookies</option>
+                    <option>Milk Soft Rolls</option>
+                    <option>Classic Cupcakes</option>
+                    <option>Brown Sugar Tart</option>
+                    <option>Custom Order</option>
+                  </select>
+                </div>
+                <div class="col-sm-6">
+                  <label class="form-label">Quantity / Portion *</label>
+                  <input type="text" class="form-control" id="qty" placeholder="e.g. 1 cake / 6 pcs" required/>
+                </div>
+                <div class="col-12">
+                  <label class="form-label">Delivery Date *</label>
+                  <input type="date" class="form-control" id="ddate" required/>
+                </div>
+                <div class="col-12">
+                  <label class="form-label">Delivery Address *</label>
+                  <input type="text" class="form-control" id="address" placeholder="Full delivery address" required/>
+                </div>
+                <div class="col-12">
+                  <label class="form-label">Special Requests</label>
+                  <textarea class="form-control" id="notes" placeholder="Allergy info, custom message, flavor preferences..."></textarea>
+                </div>
+                <div class="col-12">
+                  <button type="submit" class="btn-submit">Send Order Request 🍰</button>
+                  <div class="success-message" id="successMsg">
+                    🎉 Thank you! Your order request has been sent. We'll confirm via WhatsApp within 24 hours.
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
