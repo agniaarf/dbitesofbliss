@@ -1,14 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="shortcut icon" href="assets/img/dbitesofbliss-logo.jpeg"/>
-  <title>DBitesOfBliss — Baked With Love & Care</title>
-  <link rel="stylesheet"  href="assets/bootstrap/css/bootstrap.min.css"/>
+  <link rel="shortcut icon" href="assets/img/dbitesofbliss-logo.jpeg"/>
+  <title>DBitesOfBliss — Premium Brownies Bekasi</title>
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css"/>
   <link rel="stylesheet" href="assets/css/style.css"/>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
-
 </head>
 <body>
 
@@ -26,12 +25,63 @@
         <li class="nav-item"><a class="nav-link" href="#gallery">Gallery</a></li>
         <li class="nav-item"><a class="nav-link" href="#testimonials">Reviews</a></li>
         <li class="nav-item ms-lg-2">
-          <a class="nav-link btn-order-nav" href="#order">Order Now</a>
+          <!-- Cart Icon Button -->
+          <button class="cart-nav-btn" id="cartToggleBtn" onclick="toggleCart()">
+            <span>🛒</span>
+            <span class="cart-count" id="cartCount">0</span>
+          </button>
+        </li>
+        <li class="nav-item ms-lg-1">
+          <a class="nav-link btn-order-nav" href="#order">Pre-Order</a>
         </li>
       </ul>
     </div>
   </div>
 </nav>
+
+<!-- ═══════════════ CART DRAWER (Mini POS) ═══════════════ -->
+<div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cart-header">
+    <div>
+      <h4 class="cart-title">🛒 Your Order</h4>
+      <p class="cart-subtitle">Review items before checkout</p>
+    </div>
+    <button class="cart-close" onclick="toggleCart()">✕</button>
+  </div>
+
+  <!-- Cart Items List -->
+  <div class="cart-items" id="cartItems">
+    <!-- Items injected by JS -->
+    <div class="cart-empty" id="cartEmpty">
+      <div class="cart-empty-icon">🧁</div>
+      <p>Belum ada item di keranjang</p>
+      <a href="#menu" onclick="toggleCart()" class="btn-outline-brand" style="font-size:0.82rem;padding:0.5rem 1.2rem;">Lihat Menu</a>
+    </div>
+  </div>
+
+  <!-- Cart Summary -->
+  <div class="cart-footer" id="cartFooter" style="display:none;">
+    <div class="cart-summary">
+      <div class="summary-row">
+        <span>Subtotal</span>
+        <span id="cartSubtotal">Rp 0</span>
+      </div>
+      <div class="summary-row">
+        <span>Ongkos Kirim</span>
+        <span style="color:var(--muted);font-size:0.82rem;">Akan dikonfirmasi via WA</span>
+      </div>
+      <div class="summary-row total">
+        <span>Total</span>
+        <span id="cartTotal">Rp 0</span>
+      </div>
+    </div>
+    <button class="btn-wa-checkout" onclick="checkoutWhatsApp()">
+      <span>💬</span> Checkout via WhatsApp
+    </button>
+    <button class="btn-clear-cart" onclick="clearCart()">Kosongkan Keranjang</button>
+  </div>
+</div>
 
 <!-- ═══════════════ HERO ═══════════════ -->
 <section id="hero">
@@ -40,12 +90,12 @@
   <div class="container">
     <div class="row align-items-center g-5">
       <div class="col-lg-6">
-        <div class="hero-eyebrow reveal">✦ Handcrafted with love</div>
-        <h1 class="reveal">Every Bite<br>is a <em>Blissful</em><br>Experience.</h1>
-        <p class="reveal">Artisan baked goods made fresh daily — from flaky croissants to indulgent cakes. Crafted with the finest ingredients, delivered straight to your door.</p>
+        <div class="hero-eyebrow reveal">✦ Handcrafted with love · Bekasi</div>
+        <h1 class="reveal">Setiap Gigitan<br>adalah <em>Kebahagiaan</em><br>yang Nyata.</h1>
+        <p class="reveal">Brownies premium homemade, dibuat fresh by order — sempurna untuk hadiah, momen spesial, dan semua orang yang kamu sayangi.</p>
         <div class="d-flex flex-wrap gap-3 reveal">
-          <a href="#order" class="btn-primary-brand">Order Now</a>
-          <a href="#menu" class="btn-outline-brand">Explore Menu</a>
+          <a href="#menu" class="btn-primary-brand">Lihat Menu 🍫</a>
+          <a href="#order" class="btn-outline-brand">Pre-Order Sekarang</a>
         </div>
         <div class="hero-stats reveal">
           <div class="stat-item">
@@ -53,28 +103,69 @@
             <div class="stat-label">Happy Customers</div>
           </div>
           <div class="stat-item">
-            <div class="stat-num">30+</div>
-            <div class="stat-label">Menu Items</div>
+            <div class="stat-num">15+</div>
+            <div class="stat-label">Varian Produk</div>
           </div>
           <div class="stat-item">
             <div class="stat-num">4.9★</div>
-            <div class="stat-label">Average Rating</div>
+            <div class="stat-label">Rating</div>
           </div>
         </div>
       </div>
       <div class="col-lg-6 d-flex justify-content-center reveal">
         <div class="hero-visual">
           <div class="hero-circle">
-            <div class="hero-circle-inner">🥐</div>
+            <div class="hero-circle-inner">🍫</div>
           </div>
           <div class="hero-badge b1">
             <span class="badge-num">100%</span>
-            Fresh & Natural
+            Fresh By Order
           </div>
           <div class="hero-badge b2">
             <span class="badge-num">🚚</span>
-            Fast Delivery
+            COD & Delivery
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ WHY CHOOSE US ═══════════════ -->
+<section id="why-us">
+  <div class="container">
+    <div class="text-center mb-5 reveal">
+      <div class="section-tag">Kenapa dbitesofbliss?</div>
+      <h2 class="section-title">Bukan Sekadar Brownies Biasa</h2>
+      <div class="section-divider center"></div>
+    </div>
+    <div class="row g-4">
+      <div class="col-sm-6 col-lg-3 reveal">
+        <div class="why-card">
+          <div class="why-icon">🧈</div>
+          <h5>Bahan Premium</h5>
+          <p>Dark chocolate pilihan, butter asli, dan bahan-bahan berkualitas tinggi tanpa campuran sembarangan.</p>
+        </div>
+      </div>
+      <div class="col-sm-6 col-lg-3 reveal">
+        <div class="why-card">
+          <div class="why-icon">🔥</div>
+          <h5>Freshly Made</h5>
+          <p>Dibuat fresh setelah order dikonfirmasi — tidak ada stok basi, semua selalu baru dan lezat.</p>
+        </div>
+      </div>
+      <div class="col-sm-6 col-lg-3 reveal">
+        <div class="why-card">
+          <div class="why-icon">🎁</div>
+          <h5>Gift-Ready Packaging</h5>
+          <p>Kemasan kekinian yang estetik — perfect untuk hampers, ulang tahun, dan momen spesial.</p>
+        </div>
+      </div>
+      <div class="col-sm-6 col-lg-3 reveal">
+        <div class="why-card">
+          <div class="why-icon">💬</div>
+          <h5>Respon Cepat</h5>
+          <p>Tim kami siap merespons via WhatsApp — konfirmasi order, update status, semua dalam genggaman.</p>
         </div>
       </div>
     </div>
@@ -86,22 +177,23 @@
   <div class="container">
     <div class="row align-items-center g-5">
       <div class="col-lg-6">
-        <span class="section-tag">About</span>
-        <h2 class="section-title">Sweet Moments, Crafted Daily</h2>
+        <span class="section-tag">Our Story</span>
+        <h2 class="section-title">Lahir dari Cinta,<br>Dihadirkan untuk Kamu</h2>
         <div class="section-divider"></div>
         <div class="about-text">
-          <p>dbitesofbliss hadir dari sebuah ide sederhana: menghadirkan camilan manis yang tidak hanya enak, tetapi juga mampu memberikan "rasa bahagia dalam setiap gigitan"</p>
-          <p>Melihat tren konsumsi dessert yang terus meningkat, terutama di kalangan anak muda dan pecinta makanan manis, dbitesofbliss melihat peluang besar untuk menyediakan brownies homemade premium yang tak hanya lezat, namun juga unggul dari segi tampilan, kualitas bahan, dan kemasan yang kekinian. Dengan komitmen pada kualitas dan inovasi, dbitesofbliss berusaha menjadi brand dessert lokal yang dapat dinikmati oleh semua kalangan, serta selalu menghadirkan pengalaman manis yang istimewa di setiap produk.</p>
+          <p>dbitesofbliss hadir dari sebuah ide sederhana: <strong>menghadirkan camilan manis yang tidak hanya enak, tetapi juga mampu memberikan rasa bahagia dalam setiap gigitan.</strong></p>
+          <p>Melihat tren konsumsi dessert yang terus meningkat, terutama di kalangan anak muda dan pecinta makanan manis, kami hadir untuk menyediakan brownies homemade premium yang tak hanya lezat, namun juga unggul dari segi tampilan, kualitas bahan, dan kemasan yang kekinian.</p>
+          <p>Dengan komitmen pada kualitas dan inovasi, dbitesofbliss berusaha menjadi brand dessert lokal yang selalu menghadirkan pengalaman manis yang istimewa di setiap produk.</p>
         </div>
         <ul class="about-values">
-          <li>Premium Brownies Bekasi</li>
-          <li>For gift and special moments</li>
-          <li>Freshly Made By Order</li>
+          <li><div class="value-dot"></div> Premium Brownies Bekasi — dibuat dengan standar tinggi</li>
+          <li><div class="value-dot"></div> Perfect for gifts & special moments — kemasan estetik</li>
+          <li><div class="value-dot"></div> Freshly Made By Order — selalu fresh, tidak pernah basi</li>
         </ul>
       </div>
       <div class="col-lg-6">
         <div class="about-img-wrap">
-          <div class="about-img-box">🥐</div>
+          <div class="about-img-box">🍫</div>
           <div class="about-frame"></div>
           <div class="about-chip">
             <span class="chip-num">4.9★</span>
@@ -118,124 +210,129 @@
   <div class="container">
     <div class="text-center mb-5 reveal">
       <div class="section-tag">What We Bake</div>
-      <h2 class="section-title">Our Signature Menu</h2>
+      <h2 class="section-title">Menu Signature Kami</h2>
       <div class="section-divider center"></div>
-      <p class="text-muted" style="max-width:480px;margin:0 auto;font-size:0.95rem;">Every item is made to order. Browse our collection and find your next favorite treat.</p>
+      <p class="text-muted" style="max-width:480px;margin:0 auto;font-size:0.95rem;">Semua produk dibuat by order — pilih favoritmu dan masukkan ke keranjang. 🛒</p>
     </div>
     <div class="menu-filter justify-content-center reveal">
-      <button class="filter-btn active" onclick="filterMenu('all', this)">All Items</button>
-      <button class="filter-btn" onclick="filterMenu('cake', this)">Cakes</button>
-      <button class="filter-btn" onclick="filterMenu('bread', this)">Breads</button>
-      <button class="filter-btn" onclick="filterMenu('pastry', this)">Pastries</button>
-      <button class="filter-btn" onclick="filterMenu('cookie', this)">Cookies</button>
+      <button class="filter-btn active" onclick="filterMenu('all', this)">Semua</button>
+      <button class="filter-btn" onclick="filterMenu('original', this)">Original</button>
+      <button class="filter-btn" onclick="filterMenu('premium', this)">Premium</button>
+      <button class="filter-btn" onclick="filterMenu('special', this)">Spesial</button>
     </div>
     <div class="row g-4" id="menuGrid">
- 
-      <div class="col-md-6 col-lg-4 menu-col reveal" data-cat="cake">
+
+      <!-- Product 1 -->
+      <div class="col-md-6 col-lg-4 menu-col reveal" data-cat="original">
         <div class="menu-card">
-          <div class="menu-img">🎂<div class="menu-badge">Best Seller</div></div>
+          <div class="menu-img"> <img src="assets/img/brownies.png" alt="Brownies Classic"> <div class="menu-badge">Best Seller</div></div>
           <div class="menu-body">
-            <h5>Signature Layer Cake</h5>
-            <p>Moist vanilla sponge with silky buttercream, fresh berries and a touch of nostalgia.</p>
+            <h5>Brownies Classic</h5>
+            <p>Dark chocolate brownies lembut dengan tekstur fudgy yang meleleh di mulut. Cocok untuk semua kalangan.</p>
             <div class="menu-footer">
-              <div class="menu-price">Rp 185K</div>
-              <button class="btn-cart" onclick="addToOrder('Signature Layer Cake')">+ Add</button>
+              <div class="menu-price">Rp 55.000</div>
+              <button class="btn-cart" onclick="addToCart('Brownies Classic', 55000)">+ Tambah</button>
             </div>
           </div>
         </div>
       </div>
- 
-      <div class="col-md-6 col-lg-4 menu-col reveal" data-cat="pastry">
+
+      <!-- Product 2 -->
+      <div class="col-md-6 col-lg-4 menu-col reveal" data-cat="premium">
         <div class="menu-card">
-          <div class="menu-img">🥐<div class="menu-badge">Fan Fave</div></div>
+          <div class="menu-img"><img width="85%" src="assets/img/BrowniesMatcha.png"><div class="menu-badge">Fan Fave</div></div>
           <div class="menu-body">
-            <h5>Butter Croissant</h5>
-            <p>Laminated with real French butter, golden and flaky outside, airy pillowy inside.</p>
+            <h5>Brownies Matcha</h5>
+            <p>Perpaduan sempurna antara matcha premium Jepang dan dark chocolate — pahit yang manis, unik dan memorable.</p>
             <div class="menu-footer">
-              <div class="menu-price">Rp 28K</div>
-              <button class="btn-cart" onclick="addToOrder('Butter Croissant')">+ Add</button>
+              <div class="menu-price">Rp 65.000</div>
+              <button class="btn-cart" onclick="addToCart('Brownies Matcha', 65000)">+ Tambah</button>
             </div>
           </div>
         </div>
       </div>
- 
-      <div class="col-md-6 col-lg-4 menu-col reveal" data-cat="cookie">
+
+      <!-- Product 3 -->
+      <div class="col-md-6 col-lg-4 menu-col reveal" data-cat="premium">
         <div class="menu-card">
-          <div class="menu-img">🍪</div>
+          <div class="menu-img"><img width="85%" src="assets/img/BrowniesCreamCheese.png"><div class="menu-badge">New</div></div>
           <div class="menu-body">
-            <h5>Choco Chunk Cookies</h5>
-            <p>Brown butter dough packed with generous dark chocolate chunks. Crispy edges, chewy centers.</p>
+            <h5>Brownies Cream Cheese</h5>
+            <p>Swirl cream cheese lembut di atas fudgy brownies — kombinasi gurih dan manis yang bikin ketagihan.</p>
             <div class="menu-footer">
-              <div class="menu-price">Rp 45K / 6pcs</div>
-              <button class="btn-cart" onclick="addToOrder('Choco Chunk Cookies')">+ Add</button>
+              <div class="menu-price">Rp 70.000</div>
+              <button class="btn-cart" onclick="addToCart('Brownies Cream Cheese', 70000)">+ Tambah</button>
             </div>
           </div>
         </div>
       </div>
- 
-      <div class="col-md-6 col-lg-4 menu-col reveal" data-cat="bread">
+
+      <!-- Product 4 -->
+      <div class="col-md-6 col-lg-4 menu-col reveal" data-cat="original">
         <div class="menu-card">
-          <div class="menu-img">🍞<div class="menu-badge">New</div></div>
+          <div class="menu-img"> <img width="72%" src="assets/img/BrowniesFudgyOriginal.png" alt="Brownies Fudgy Original"> <div class="menu-badge">Original</div></div>
           <div class="menu-body">
-            <h5>Milk Soft Rolls</h5>
-            <p>Japanese-style fluffy milk bread rolls, perfect as is or filled with your favorite spread.</p>
+            <h5>Brownies Fudgy Almond</h5>
+            <p>Extra fudgy dan rich — untuk kamu yang suka brownies almonddengan tekstur padat, lembab, dan penuh cokelat.</p>
             <div class="menu-footer">
-              <div class="menu-price">Rp 55K / 6pcs</div>
-              <button class="btn-cart" onclick="addToOrder('Milk Soft Rolls')">+ Add</button>
+              <div class="menu-price">Rp 60.000</div>
+              <button class="btn-cart" onclick="addToCart('Brownies Fudgy Original', 60000)">+ Tambah</button>
             </div>
           </div>
         </div>
       </div>
- 
-      <div class="col-md-6 col-lg-4 menu-col reveal" data-cat="cake">
+
+      <!-- Product 5 -->
+      <div class="col-md-6 col-lg-4 menu-col reveal" data-cat="special">
         <div class="menu-card">
-          <div class="menu-img">🧁</div>
+          <div class="menu-img"><img width="70%" src="assets/img/BrowniesBoxGift.png"><div class="menu-badge">Gift Ready</div></div>
           <div class="menu-body">
-            <h5>Classic Cupcakes</h5>
-            <p>Delicate vanilla or chocolate base, swirled with our house frosting. Available in 6 or 12.</p>
+            <h5>Brownies Box Gift</h5>
+            <p>Set isi 4 potong mix varian dalam kemasan gift box eksklusif — perfect untuk hadiah ulang tahun & anniversary.</p>
             <div class="menu-footer">
-              <div class="menu-price">Rp 95K / 6pcs</div>
-              <button class="btn-cart" onclick="addToOrder('Classic Cupcakes')">+ Add</button>
+              <div class="menu-price">Rp 120.000</div>
+              <button class="btn-cart" onclick="addToCart('Brownies Box Gift', 120000)">+ Tambah</button>
             </div>
           </div>
         </div>
       </div>
- 
-      <div class="col-md-6 col-lg-4 menu-col reveal" data-cat="pastry">
+
+      <!-- Product 6 -->
+      <div class="col-md-6 col-lg-4 menu-col reveal" data-cat="special">
         <div class="menu-card">
-          <div class="menu-img">🥧<div class="menu-badge">Seasonal</div></div>
+          <div class="menu-img"><img width="95%" src="assets/img/SlicedCakeRedVelvet.png"><div class="menu-badge">Seasonal</div></div>
           <div class="menu-body">
-            <h5>Brown Sugar Tart</h5>
-            <p>Crisp shortcrust shell filled with caramel custard and a dusting of flaky sea salt.</p>
+            <h5>Brownies Red Velvet</h5>
+            <p>Red velvet brownies dengan cream cheese frosting — cantik, instagrammable, dan rasanya juara!</p>
             <div class="menu-footer">
-              <div class="menu-price">Rp 65K</div>
-              <button class="btn-cart" onclick="addToOrder('Brown Sugar Tart')">+ Add</button>
+              <div class="menu-price">Rp 75.000</div>
+              <button class="btn-cart" onclick="addToCart('Brownies Red Velvet', 75000)">+ Tambah</button>
             </div>
           </div>
         </div>
       </div>
- 
+
     </div>
     <div class="text-center mt-5 reveal">
-      <p style="color:var(--muted);font-size:0.9rem;margin-bottom:1rem;">Want something custom? We love special orders!</p>
-      <a href="#order" class="btn-outline-brand">Request Custom Order</a>
+      <p style="color:var(--muted);font-size:0.9rem;margin-bottom:1rem;">Mau custom rasa atau ukuran? Kami siap!</p>
+      <a href="#order" class="btn-outline-brand">Request Custom Order ✨</a>
     </div>
   </div>
 </section>
- 
+
 <!-- ═══════════════ TESTIMONIALS ═══════════════ -->
 <section id="testimonials">
   <div class="container">
     <div class="text-center mb-5 reveal">
       <div class="section-tag">Happy Customers</div>
-      <h2 class="section-title" style="color:var(--white);">What People Are Saying</h2>
+      <h2 class="section-title" style="color:var(--white);">Yang Mereka Bilang 💬</h2>
       <div class="section-divider center" style="background:var(--light);"></div>
     </div>
     <div class="row g-4">
       <div class="col-md-4 reveal">
         <div class="testi-card">
           <div class="stars">★★★★★</div>
-          <p class="testi-text">"The layer cake for my daughter's birthday was absolutely stunning — and even better tasting. Every guest asked where it was from!"</p>
+          <p class="testi-text">"Brownies Classic-nya beneran bikin nagih! Udah order 3 kali dan nggak pernah kecewa. Teksturnya fudgy banget, cokelatnya dapet. 100% recommended!"</p>
           <div class="testi-author">
             <div class="testi-avatar">👩</div>
             <div><div class="testi-name">Sari Kusuma</div><div class="testi-loc">Jakarta Selatan</div></div>
@@ -245,144 +342,167 @@
       <div class="col-md-4 reveal">
         <div class="testi-card">
           <div class="stars">★★★★★</div>
-          <p class="testi-text">"Ordered the croissants for a Sunday brunch and they were gone within minutes. Perfectly laminated — I've never had better outside a patisserie."</p>
+          <p class="testi-text">"Beli Brownies Gift Box buat ultah bestie — reaksinya itu lho, langsung nangis terharu! Packagingnya cantik banget, rasanya enak, pokoknya worth every penny."</p>
           <div class="testi-author">
             <div class="testi-avatar">👨</div>
-            <div><div class="testi-name">Rafi Andrianto</div><div class="testi-loc">Tangerang</div></div>
+            <div><div class="testi-name">Rafi Andrianto</div><div class="testi-loc">Bekasi Timur</div></div>
           </div>
         </div>
       </div>
       <div class="col-md-4 reveal">
         <div class="testi-card">
           <div class="stars">★★★★★</div>
-          <p class="testi-text">"I've been a monthly subscriber for their soft rolls since they launched. The quality is consistently amazing — it genuinely tastes like love in every bite."</p>
+          <p class="testi-text">"Matcha brownies-nya juara! Nggak terlalu manis, matcha-nya kerasa, dan packagingnya aesthetic banget. Udah jadi langganan bulanan saya. Keep it up dbitesofbliss! 🙏"</p>
           <div class="testi-author">
             <div class="testi-avatar">👩</div>
-            <div><div class="testi-name">Dina Pratiwi</div><div class="testi-loc">Bekasi</div></div>
+            <div><div class="testi-name">Dina Pratiwi</div><div class="testi-loc">Bekasi Utara</div></div>
           </div>
         </div>
       </div>
     </div>
   </div>
 </section>
- 
+
 <!-- ═══════════════ GALLERY ═══════════════ -->
 <section id="gallery">
   <div class="container">
     <div class="text-center mb-5 reveal">
       <div class="section-tag">Our Creations</div>
-      <h2 class="section-title">Fresh From the Oven</h2>
+      <h2 class="section-title">Fresh From the Oven 🔥</h2>
       <div class="section-divider center"></div>
     </div>
     <div class="gallery-grid reveal">
       <div class="gallery-item span2" style="background:#EDE0C8;">
-        🎂
-        <div class="gallery-overlay"><span>Celebration Cakes</span></div>
+        🍫
+        <div class="gallery-overlay"><span>Brownies Classic</span></div>
       </div>
       <div class="gallery-item tall" style="background:#E8D5B7;">
-        🥐
-        <div class="gallery-overlay"><span>Pastries</span></div>
+        🎁
+        <div class="gallery-overlay"><span>Gift Packaging</span></div>
       </div>
       <div class="gallery-item" style="background:#F2E4CC;">
-        🍪
-        <div class="gallery-overlay"><span>Cookies</span></div>
+        🍵
+        <div class="gallery-overlay"><span>Matcha Series</span></div>
       </div>
       <div class="gallery-item" style="background:#EAD8C0;">
-        🧁
-        <div class="gallery-overlay"><span>Cupcakes</span></div>
+        🧀
+        <div class="gallery-overlay"><span>Cream Cheese</span></div>
       </div>
       <div class="gallery-item" style="background:#E5D3B3;">
-        🍞
-        <div class="gallery-overlay"><span>Artisan Breads</span></div>
+        🍓
+        <div class="gallery-overlay"><span>Red Velvet</span></div>
       </div>
       <div class="gallery-item" style="background:#ECD9C3;">
-        🥧
-        <div class="gallery-overlay"><span>Tarts & Pies</span></div>
+        🎂
+        <div class="gallery-overlay"><span>Custom Order</span></div>
       </div>
     </div>
-    <p class="text-center mt-4 reveal" style="font-size:0.85rem;color:var(--muted);">Follow us on Instagram <strong style="color:var(--primary);">@dbitesofbliss</strong> for daily fresh drops</p>
+    <p class="text-center mt-4 reveal" style="font-size:0.85rem;color:var(--muted);">Follow us <strong style="color:var(--primary);">@dbitesofbliss</strong> for daily updates & promo 🍫</p>
   </div>
 </section>
- 
-<!-- ═══════════════ ORDER FORM ═══════════════ -->
+
+<!-- ═══════════════ PRE-ORDER FORM ═══════════════ -->
 <section id="order">
   <div class="container">
     <div class="text-center mb-5 reveal">
-      <div class="section-tag">Place Your Order</div>
-      <h2 class="section-title">Let's Bake Something<br>Just For You</h2>
+      <div class="section-tag">Pre-Order</div>
+      <h2 class="section-title">Pesan Sekarang,<br>Nikmati Kebahagiaan Besok 🍫</h2>
       <div class="section-divider center"></div>
+      <p class="text-muted" style="font-size:0.9rem;">Isi form di bawah — kami akan konfirmasi via WhatsApp dalam 24 jam.</p>
     </div>
     <div class="order-wrapper reveal">
       <div class="row g-0">
+        <!-- Sidebar Info -->
         <div class="col-lg-4">
           <div class="order-sidebar">
             <h3>Order Info</h3>
-            <p>We accept pre-orders at least 2 days in advance. For custom cakes, please order 5 days before your event.</p>
+            <p>Pre-order minimal H-2. Untuk custom order atau hampers, harap pesan H-5 sebelum tanggal pengiriman.</p>
             <ul class="order-info-list">
               <li>
                 <div class="info-icon">🕐</div>
-                <div><strong style="color:#fff;">Processing Time</strong><br>2–5 business days</div>
+                <div><strong style="color:#fff;">Processing Time</strong><br>2–5 hari kerja</div>
               </li>
               <li>
                 <div class="info-icon">🚚</div>
-                <div><strong style="color:#fff;">Delivery</strong><br>Jabodetabek area covered</div>
+                <div><strong style="color:#fff;">Delivery</strong><br>Area Bekasi & sekitarnya</div>
               </li>
               <li>
                 <div class="info-icon">💬</div>
-                <div><strong style="color:#fff;">Confirmation</strong><br>Via WhatsApp within 24 hrs</div>
+                <div><strong style="color:#fff;">Konfirmasi</strong><br>Via WhatsApp dalam 24 jam</div>
               </li>
               <li>
                 <div class="info-icon">💳</div>
-                <div><strong style="color:#fff;">Payment</strong><br>Transfer / GoPay / OVO</div>
+                <div><strong style="color:#fff;">Pembayaran</strong><br>Transfer / GoPay / OVO / COD</div>
               </li>
             </ul>
+
+            <!-- Cart Summary in Sidebar (compact) -->
+            <div class="sidebar-cart-summary" id="sidebarCartSummary" style="display:none;">
+              <div class="sidebar-cart-title">🛒 Pesanan Kamu</div>
+              <div id="sidebarCartItems"></div>
+              <div class="sidebar-cart-total">
+                <span>Total</span>
+                <span id="sidebarTotal">Rp 0</span>
+              </div>
+            </div>
           </div>
         </div>
+        <!-- Order Form -->
         <div class="col-lg-8">
           <div class="order-form-section">
             <form id="orderForm" novalidate>
               <div class="row g-3">
                 <div class="col-sm-6">
-                  <label class="form-label">Full Name *</label>
-                  <input type="text" class="form-control" id="fname" placeholder="Your name" required/>
+                  <label class="form-label">Nama Customer *</label>
+                  <input type="text" class="form-control" id="fname" placeholder="Nama lengkap kamu" required/>
                 </div>
                 <div class="col-sm-6">
-                  <label class="form-label">WhatsApp Number *</label>
+                  <label class="form-label">No. WhatsApp *</label>
                   <input type="tel" class="form-control" id="phone" placeholder="08xx-xxxx-xxxx" required/>
                 </div>
+                <div class="col-12">
+                  <label class="form-label">Alamat Pengiriman *</label>
+                  <textarea class="form-control" id="address" placeholder="Alamat lengkap termasuk nama jalan, nomor, kecamatan, kota..." required style="min-height:80px;"></textarea>
+                </div>
                 <div class="col-sm-6">
-                  <label class="form-label">Product *</label>
-                  <select class="form-select" id="product" required>
-                    <option value="" disabled selected>Select item</option>
-                    <option>Signature Layer Cake</option>
-                    <option>Butter Croissant</option>
-                    <option>Choco Chunk Cookies</option>
-                    <option>Milk Soft Rolls</option>
-                    <option>Classic Cupcakes</option>
-                    <option>Brown Sugar Tart</option>
-                    <option>Custom Order</option>
+                  <label class="form-label">Tanggal Pre-Order</label>
+                  <input type="date" class="form-control" id="ddate"/>
+                  <div class="form-hint">Minimal 2 hari dari sekarang</div>
+                </div>
+                <div class="col-sm-6">
+                  <label class="form-label">Sumber Order</label>
+                  <select class="form-select" id="source">
+                    <option value="" selected>Dari mana kamu tahu kita?</option>
+                    <option>Instagram</option>
+                    <option>TikTok</option>
+                    <option>Rekomendasi Teman</option>
+                    <option>WhatsApp</option>
+                    <option>Lainnya</option>
                   </select>
                 </div>
-                <div class="col-sm-6">
-                  <label class="form-label">Quantity / Portion *</label>
-                  <input type="text" class="form-control" id="qty" placeholder="e.g. 1 cake / 6 pcs" required/>
+                <div class="col-12">
+                  <label class="form-label">Produk yang dipesan</label>
+                  <!-- If cart has items, show cart items; otherwise show manual select -->
+                  <div id="formProductInfo" class="form-product-info">
+                    <div class="cart-in-form" id="cartInForm">
+                      <!-- Populated by JS if cart has items -->
+                      <span style="color:var(--muted);font-size:0.85rem;">Tambah produk dari menu di atas, atau tulis manual di catatan 👇</span>
+                    </div>
+                  </div>
                 </div>
                 <div class="col-12">
-                  <label class="form-label">Delivery Date *</label>
-                  <input type="date" class="form-control" id="ddate" required/>
+                  <label class="form-label">Catatan (opsional)</label>
+                  <textarea class="form-control" id="notes" placeholder="Custom message, preferensi rasa, info alergi, atau permintaan khusus lainnya..."></textarea>
                 </div>
                 <div class="col-12">
-                  <label class="form-label">Delivery Address *</label>
-                  <input type="text" class="form-control" id="address" placeholder="Full delivery address" required/>
-                </div>
-                <div class="col-12">
-                  <label class="form-label">Special Requests</label>
-                  <textarea class="form-control" id="notes" placeholder="Allergy info, custom message, flavor preferences..."></textarea>
-                </div>
-                <div class="col-12">
-                  <button type="submit" class="btn-submit">Send Order Request 🍰</button>
+                  <button type="submit" class="btn-submit">
+                    Kirim Pre-Order via WhatsApp 💬
+                  </button>
+                  <p style="text-align:center;font-size:0.78rem;color:var(--muted);margin-top:0.75rem;">
+                    Dengan mengirim form ini, kamu akan diarahkan ke WhatsApp kami untuk konfirmasi.
+                  </p>
                   <div class="success-message" id="successMsg">
-                    🎉 Thank you! Your order request has been sent. We'll confirm via WhatsApp within 24 hours.
+                    🎉 Pesanan kamu berhasil dikirim! Kami akan konfirmasi via WhatsApp segera.
                   </div>
                 </div>
               </div>
@@ -394,47 +514,64 @@
   </div>
 </section>
 
+<!-- ═══════════════ CTA BANNER ═══════════════ -->
+<section id="cta-banner">
+  <div class="container">
+    <div class="cta-box reveal">
+      <div class="cta-content">
+        <div class="section-tag" style="color:var(--light);">Jangan Kehabisan!</div>
+        <h2>Pesan Sekarang &<br>Bikin Momen Makin Istimewa 🍫</h2>
+        <p>Stok terbatas setiap harinya. Order sekarang sebelum slot penuh!</p>
+        <div class="d-flex flex-wrap gap-3 justify-content-center justify-content-lg-start">
+          <a href="#order" class="btn-primary-brand" style="background:var(--white);color:var(--primary);">Pre-Order Sekarang</a>
+          <a href="https://wa.me/6285266744688" target="_blank" class="btn-outline-brand" style="border-color:rgba(255,255,255,0.5);color:var(--white);">Chat via WhatsApp 💬</a>
+        </div>
+      </div>
+      <div class="cta-emoji">🎁</div>
+    </div>
+  </div>
+</section>
+
 <!-- ═══════════════ FOOTER ═══════════════ -->
 <footer>
   <div class="container">
     <div class="row g-5">
       <div class="col-lg-4">
         <div class="footer-brand">D<em>Bites</em>OfBliss</div>
-        <div class="footer-tagline">Baked With Love &amp; Care</div>
-        <p style="font-size:0.875rem;line-height:1.7;color:rgba(255,255,255,0.5);margin-bottom:1.5rem;">Artisan baked goods crafted daily in our home kitchen. Bringing warmth, sweetness, and joy to every table.</p>
+        <div class="footer-tagline">Premium Brownies Bekasi — Baked with 🤎</div>
+        <p style="font-size:0.875rem;line-height:1.7;color:rgba(255,255,255,0.5);margin-bottom:1.5rem;">Brownies homemade premium, freshly made by order. Dibuat untuk semua momen manis dalam hidupmu.</p>
         <div class="footer-social">
-          <div class="social-btn" title="Instagram">📸</div>
-          <div class="social-btn" title="WhatsApp">💬</div>
+          <a href="https://instagram.com/dbitesofbliss" target="_blank" class="social-btn" title="Instagram">📸</a>
+          <a href="https://wa.me/6285266744688" target="_blank" class="social-btn" title="WhatsApp">💬</a>
           <div class="social-btn" title="TikTok">🎵</div>
-          <div class="social-btn" title="Facebook">📘</div>
         </div>
       </div>
       <div class="col-sm-4 col-lg-2">
         <h6>Menu</h6>
         <ul>
-          <li><a href="#menu">Cakes</a></li>
-          <li><a href="#menu">Pastries</a></li>
-          <li><a href="#menu">Breads</a></li>
-          <li><a href="#menu">Cookies</a></li>
+          <li><a href="#menu">Brownies Classic</a></li>
+          <li><a href="#menu">Brownies Matcha</a></li>
+          <li><a href="#menu">Cream Cheese</a></li>
+          <li><a href="#menu">Gift Box</a></li>
           <li><a href="#order">Custom Order</a></li>
         </ul>
       </div>
       <div class="col-sm-4 col-lg-2">
-        <h6>Company</h6>
+        <h6>Info</h6>
         <ul>
           <li><a href="#about">Our Story</a></li>
           <li><a href="#gallery">Gallery</a></li>
           <li><a href="#testimonials">Reviews</a></li>
-          <li><a href="#order">Order Now</a></li>
+          <li><a href="#order">Pre-Order</a></li>
         </ul>
       </div>
       <div class="col-sm-4 col-lg-4">
-        <h6>Contact Us</h6>
+        <h6>Hubungi Kami</h6>
         <ul>
-          <li><a href="#">📍  Bekasi, Indonesia</a></li>
-          <li><a href="#">📞 +62 852-6674-4688</a></li>
-          <li><a href="#">✉️ dbitesofbliss@gmail.com</a></li>
-          <li><a href="#">⏰ Tue–Sun, 10am – 09pm</a></li>
+          <li><a href="#">📍 Bekasi, Jawa Barat</a></li>
+          <li><a href="https://wa.me/6285266744688">📞 +62 852-6674-4688</a></li>
+          <li><a href="mailto:dbitesofbliss@gmail.com">✉️ dbitesofbliss@gmail.com</a></li>
+          <li><a href="#">⏰ Selasa–Minggu, 10.00–21.00</a></li>
         </ul>
       </div>
     </div>
@@ -444,6 +581,9 @@
     </div>
   </div>
 </footer>
+
+<!-- Toast Notification -->
+<div class="toast-container" id="toastContainer"></div>
 
 <script src="assets/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="assets/js/custom.js"></script>
