@@ -9,10 +9,6 @@
    - Menu filter
    ═══════════════════════════════════════════════════════════ */
 
-// ─────────────────────────────────────
-// 1. WHATSAPP NUMBER CONFIG
-//    Ganti nomor ini dengan nomor WA aktif kamu (format internasional, tanpa +)
-// ─────────────────────────────────────
 const WA_NUMBER = "6285266744688";
 
 // ─────────────────────────────────────
@@ -76,7 +72,7 @@ function addToCart(name, price) {
   updateCartCount();
   updateCartInForm();
   updateSidebarCart();
-  showToast(`✅ ${name} ditambahkan!`);
+  showToast(`${name} ditambahkan!`);
   // Bump animation on cart badge
   const badge = document.getElementById("cartCount");
   if (badge) {
@@ -115,7 +111,7 @@ function removeFromCart(name) {
   updateCartCount();
   updateCartInForm();
   updateSidebarCart();
-  showToast(`🗑️ ${name} dihapus dari keranjang`);
+  showToast(`${name} dihapus dari keranjang`);
 }
 
 /**
@@ -327,7 +323,7 @@ function checkoutWhatsApp() {
   const tanggal = ddate ? `\nTanggal Pre-Order: ${ddate}` : "";
 
   const message = [
-    `Halo dbitesofbliss 🍫`,
+    `Halo, DBitesOfBliss!`,
     `Saya ingin melakukan pre-order:`,
     ``,
     `Nama: ${fname || "(belum diisi)"}`,
@@ -341,7 +337,7 @@ function checkoutWhatsApp() {
     `Total: ${total}`,
     notes ? `Catatan: ${notes}` : "",
     ``,
-    `Terima kasih 🙏`
+    `Terima kasih sudah berbelanja di dbitesofbliss.`
   ].filter(line => line !== "").join("\n");
 
   // Encode and redirect to WhatsApp
@@ -409,7 +405,7 @@ function handleOrderForm(e) {
 
   // Compose message
   const message = [
-    `Halo dbitesofbliss 🍫`,
+    `Halo, DBitesOfBliss!`,
     `Saya ingin melakukan pre-order:`,
     ``,
     `Nama: ${fname}`,
@@ -424,7 +420,7 @@ function handleOrderForm(e) {
     total,
     notes ? `Catatan: ${notes}` : "",
     ``,
-    `Terima kasih 🙏`
+    ` Terima kasih sudah berbelanja di dbitesofbliss`
   ].filter(line => line !== undefined && line !== "").join("\n");
 
   const waURL = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(message)}`;
