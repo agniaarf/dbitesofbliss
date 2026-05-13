@@ -1,32 +1,6 @@
-/* ═══════════════════════════════════════════════════════════
-   dbitesofbliss — custom.js
-   Features:
-   - Cart system (localStorage)
-   - Cart Drawer (Mini POS UI)
-   - WhatsApp Checkout (auto message)
-   - Pre-Order Form handling
-   - Scroll reveal
-   - Menu filter
-   ═══════════════════════════════════════════════════════════ */
-
 const WA_NUMBER = "6285266744688";
 
-// ─────────────────────────────────────
-// 2. PRODUCT EMOJI MAP
-//    Emoji untuk tampilan di cart drawer
-// ─────────────────────────────────────
-const PRODUCT_EMOJIS = {
-  "Brownies Classic":       "🍫",
-  "Brownies Matcha":        "🍵",
-  "Brownies Cream Cheese":  "🧀",
-  "Brownies Fudgy Original":"🍫",
-  "Brownies Box Gift":      "🎂",
-  "Brownies Red Velvet":    "🍓",
-};
 
-// ─────────────────────────────────────
-// 3. CART STATE (localStorage)
-// ─────────────────────────────────────
 
 /**
  * Load cart from localStorage, return array of {name, price, qty}
@@ -50,10 +24,6 @@ function saveCart(cart) {
 // Initialize cart from storage
 let cart = loadCart();
 
-// ─────────────────────────────────────
-// 4. CART CORE FUNCTIONS
-// ─────────────────────────────────────
-
 /**
  * Add a product to the cart.
  * If already exists, increment qty.
@@ -72,8 +42,7 @@ function addToCart(name, price) {
   updateCartCount();
   updateCartInForm();
   updateSidebarCart();
-  showToast(`${name} ditambahkan!`);
-  // Bump animation on cart badge
+  showToast(`${name} added!`);
   const badge = document.getElementById("cartCount");
   if (badge) {
     badge.classList.add("bump");
@@ -81,11 +50,6 @@ function addToCart(name, price) {
   }
 }
 
-/**
- * Change quantity of a cart item. If qty reaches 0, remove it.
- * @param {string} name  - Product name
- * @param {number} delta - +1 or -1
- */
 function changeQty(name, delta) {
   const item = cart.find(i => i.name === name);
   if (!item) return;
@@ -100,10 +64,7 @@ function changeQty(name, delta) {
   updateSidebarCart();
 }
 
-/**
- * Remove a specific item from cart by name
- * @param {string} name - Product name to remove
- */
+
 function removeFromCart(name) {
   cart = cart.filter(i => i.name !== name);
   saveCart(cart);
@@ -111,12 +72,10 @@ function removeFromCart(name) {
   updateCartCount();
   updateCartInForm();
   updateSidebarCart();
-  showToast(`${name} dihapus dari keranjang`);
+  showToast(`${name} removed from cart`);
 }
 
-/**
- * Clear all items in cart
- */
+
 function clearCart() {
   cart = [];
   saveCart(cart);
@@ -126,30 +85,17 @@ function clearCart() {
   updateSidebarCart();
 }
 
-/**
- * Calculate total price of all cart items
- * @returns {number}
- */
+
 function getCartTotal() {
   return cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
 }
 
-/**
- * Format number as Indonesian Rupiah
- * @param {number} num
- * @returns {string} e.g. "Rp 55.000"
- */
+
 function formatRupiah(num) {
   return "Rp " + num.toLocaleString("id-ID");
 }
 
-// ─────────────────────────────────────
-// 5. CART UI RENDER
-// ─────────────────────────────────────
 
-/**
- * Re-render the cart drawer items list and footer
- */
 function renderCart() {
   const itemsEl  = document.getElementById("cartItems");
   const emptyEl  = document.getElementById("cartEmpty");
@@ -158,7 +104,6 @@ function renderCart() {
   if (!itemsEl) return;
 
   if (cart.length === 0) {
-    // Show empty state
     itemsEl.innerHTML = "";
     itemsEl.appendChild(emptyEl || createEmptyState());
     if (emptyEl) emptyEl.style.display = "flex";
@@ -166,24 +111,19 @@ function renderCart() {
     return;
   }
 
-  // Hide empty state, build item list
   if (emptyEl) emptyEl.style.display = "none";
   if (footerEl) footerEl.style.display = "block";
 
-  // Clear existing items (keep empty div)
   Array.from(itemsEl.children).forEach(child => {
     if (!child.classList.contains("cart-empty")) child.remove();
   });
 
-  // Build item rows
   const fragment = document.createDocumentFragment();
   cart.forEach(item => {
     const row = document.createElement("div");
     row.className = "cart-item";
     row.dataset.name = item.name;
-    const emoji = PRODUCT_EMOJIS[item.name] || "🍫";
     row.innerHTML = `
-      <div class="cart-item-emoji">${emoji}</div>
       <div class="cart-item-info">
         <div class="cart-item-name">${item.name}</div>
         <div class="cart-item-price">${formatRupiah(item.price)} / pcs</div>
@@ -199,7 +139,6 @@ function renderCart() {
   });
   itemsEl.prepend(fragment);
 
-  // Update totals
   const total = getCartTotal();
   const subtotalEl = document.getElementById("cartSubtotal");
   const totalEl    = document.getElementById("cartTotal");
@@ -217,10 +156,6 @@ function updateCartCount() {
   badge.textContent = total;
   badge.style.display = total > 0 ? "flex" : "none";
 }
-
-// ─────────────────────────────────────
-// 6. SIDEBAR CART (shown in order form)
-// ─────────────────────────────────────
 
 /**
  * Update the compact cart summary shown inside the pre-order form sidebar
@@ -240,17 +175,13 @@ function updateSidebarCart() {
   if (items) {
     items.innerHTML = cart.map(item => `
       <div class="sidebar-cart-item">
-        <span>${PRODUCT_EMOJIS[item.name] || "🍫"} ${item.name} ×${item.qty}</span>
+        <span>${item.name} ×${item.qty}</span>
         <span>${formatRupiah(item.price * item.qty)}</span>
       </div>
     `).join("");
   }
   if (total) total.textContent = formatRupiah(getCartTotal());
 }
-
-// ─────────────────────────────────────
-// 7. CART IN FORM (order section)
-// ─────────────────────────────────────
 
 /**
  * Show cart items inside the pre-order form's product info area
@@ -259,12 +190,12 @@ function updateCartInForm() {
   const el = document.getElementById("cartInForm");
   if (!el) return;
   if (cart.length === 0) {
-    el.innerHTML = `<span style="color:var(--muted);font-size:0.85rem;">Tambah produk dari menu di atas, atau tulis manual di catatan 👇</span>`;
+    el.innerHTML = `<span style="color:var(--muted);font-size:0.85rem;">Add products from menu above, or write manually in notes below</span>`;
     return;
   }
   el.innerHTML = cart.map(item => `
     <div class="cart-in-form-item">
-      <span>${PRODUCT_EMOJIS[item.name] || "🍫"} ${item.name} <strong>×${item.qty}</strong></span>
+      <span>${item.name} <strong>×${item.qty}</strong></span>
       <span style="color:var(--primary);font-weight:600;">${formatRupiah(item.price * item.qty)}</span>
     </div>
   `).join("") + `
@@ -273,10 +204,6 @@ function updateCartInForm() {
     </div>
   `;
 }
-
-// ─────────────────────────────────────
-// 8. CART DRAWER TOGGLE
-// ─────────────────────────────────────
 
 /**
  * Toggle open/close of the cart drawer
@@ -292,17 +219,13 @@ function toggleCart() {
   document.body.style.overflow = isOpen ? "" : "hidden";
 }
 
-// ─────────────────────────────────────
-// 9. WHATSAPP CHECKOUT
-// ─────────────────────────────────────
-
 /**
  * Build and send WhatsApp message from the cart.
  * Triggered from the cart drawer "Checkout via WhatsApp" button.
  */
 function checkoutWhatsApp() {
   if (cart.length === 0) {
-    showToast("⚠️ Keranjang masih kosong!");
+    showToast("Cart is empty!");
     return;
   }
 
@@ -318,9 +241,8 @@ function checkoutWhatsApp() {
     `  - ${item.name} ×${item.qty} = ${formatRupiah(item.price * item.qty)}`
   ).join("\n");
 
-  // Format the WhatsApp message
   const total = formatRupiah(getCartTotal());
-  const tanggal = ddate ? `\nTanggal Pre-Order: ${ddate}` : "";
+  const tanggal = ddate ? `\nPreorder Date: ${ddate}` : "";
 
   const message = [
     `Halo, DBitesOfBliss!`,
@@ -344,10 +266,6 @@ function checkoutWhatsApp() {
   const waURL = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(message)}`;
   window.open(waURL, "_blank");
 }
-
-// ─────────────────────────────────────
-// 10. PRE-ORDER FORM SUBMISSION
-// ─────────────────────────────────────
 
 /**
  * Handle the pre-order form submit.
@@ -377,7 +295,7 @@ function handleOrderForm(e) {
   });
 
   if (!valid) {
-    showToast("⚠️ Mohon lengkapi data wajib diisi!");
+    showToast("Please fill in all required fields!");
     return;
   }
 
@@ -389,21 +307,19 @@ function handleOrderForm(e) {
   const ddate   = document.getElementById("ddate").value;
   const source  = document.getElementById("source").value;
 
-  // Build order lines — use cart if available, else note they'll discuss via WA
   let orderLines = "";
   if (cart.length > 0) {
     orderLines = cart.map(item =>
       `  - ${item.name} ×${item.qty} = ${formatRupiah(item.price * item.qty)}`
     ).join("\n");
   } else {
-    orderLines = "  (Produk akan dikonfirmasi via WhatsApp)";
+    orderLines = "  (Products will be confirmed via WhatsApp)";
   }
 
   const total = cart.length > 0 ? `Total: ${formatRupiah(getCartTotal())}` : "";
-  const tanggal = ddate ? `\nTanggal Pre-Order: ${ddate}` : "";
-  const sumber  = source ? `\nDari: ${source}` : "";
+  const tanggal = ddate ? `\nPreorder Date: ${ddate}` : "";
+  const sumber  = source ? `\nSource: ${source}` : "";
 
-  // Compose message
   const message = [
     `Halo, DBitesOfBliss!`,
     `Saya ingin melakukan pre-order:`,
@@ -439,10 +355,6 @@ function handleOrderForm(e) {
   }, 500);
 }
 
-// ─────────────────────────────────────
-// 11. TOAST NOTIFICATION
-// ─────────────────────────────────────
-
 /**
  * Show a brief toast notification at bottom-right
  * @param {string} message
@@ -460,15 +372,7 @@ function showToast(message, duration = 2700) {
   }, duration);
 }
 
-// ─────────────────────────────────────
-// 12. MENU FILTER
-// ─────────────────────────────────────
 
-/**
- * Filter menu cards by category
- * @param {string} cat - Category key or 'all'
- * @param {HTMLElement} btn - The clicked filter button
- */
 function filterMenu(cat, btn) {
   document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
   btn.classList.add("active");
@@ -478,10 +382,6 @@ function filterMenu(cat, btn) {
   });
 }
 
-// ─────────────────────────────────────
-// 13. LEGACY: addToOrder (scroll to form)
-//     Kept for backward compat if referenced elsewhere
-// ─────────────────────────────────────
 function addToOrder(item) {
   const select = document.getElementById("product");
   if (select) {
@@ -493,9 +393,6 @@ function addToOrder(item) {
   if (orderSection) orderSection.scrollIntoView({ behavior: "smooth" });
 }
 
-// ─────────────────────────────────────
-// 14. SCROLL REVEAL
-// ─────────────────────────────────────
 const reveals = document.querySelectorAll(".reveal");
 const revealObserver = new IntersectionObserver((entries) => {
   entries.forEach((e, i) => {
@@ -507,9 +404,6 @@ const revealObserver = new IntersectionObserver((entries) => {
 }, { threshold: 0.1 });
 reveals.forEach(el => revealObserver.observe(el));
 
-// ─────────────────────────────────────
-// 15. DELIVERY DATE MIN (H+2)
-// ─────────────────────────────────────
 const dateInput = document.getElementById("ddate");
 if (dateInput) {
   const today = new Date();
@@ -517,9 +411,6 @@ if (dateInput) {
   dateInput.min = today.toISOString().split("T")[0];
 }
 
-// ─────────────────────────────────────
-// 16. EVENT LISTENERS — INIT
-// ─────────────────────────────────────
 document.addEventListener("DOMContentLoaded", () => {
   // Bind form submit
   const form = document.getElementById("orderForm");

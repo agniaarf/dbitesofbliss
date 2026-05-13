@@ -959,7 +959,7 @@ footer ul li a:hover { color: var(--light); }
     .hero-circle { width: 260px; height: 260px; }
     .hero-circle-inner { font-size: 5.5rem; }
     .hero-stats { gap: 1.5rem; }
-    .gallery-grid { grid-template-columns: repeat(2, 1fr); grid-template-rows: auto; }
+    .gallery-grid { grid-template-columns: repeat(1, 1fr); grid-template-rows: auto; }
     .gallery-item.span2 { grid-column: span 1; }
     .gallery-item.tall { grid-row: span 1; }
     .order-sidebar { padding: 2rem 1.5rem; }
